@@ -18,12 +18,7 @@ module.exports = {
   BRANCH: "main",
   WARN_COUNT: 3,
   PACKNAME: process.env.PACKNAME || "FAMOUS-MD",
-  WELCOME_MSG: process.env.WELCOME_MSG || "*✰📍 FAMOUS ✮͢  MD📍✰* ┗━━━━━✦❘༻👑༺❘✦━━━━ ━┛         
-🎗️ Welcome the new member(s)
-║ *New Member(s):*
-║ @user
-🎗️ Welcome to @gname
-╚════🎗️🎗️🎗️═════",
+  WELCOME_MSG: process.env.WELCOME_MSG || "🎗️ Welcome the new member(s)\n| *New Member(s):*\n║ @user\n🎗️ Welcome to @gname═",
   GOODBYE_MSG: process.env.GOODBYE_MSG || "Bye @user\nGOODBYE ",
   AUTHOR: process.env.AUTHOR || "FAMOUS-TECH",
   SUDO:
