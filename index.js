@@ -25,19 +25,15 @@ const readAndRequireFiles = async (directory) => {
 async function initialize() {
   console.log("Starting FAMOUS-MD");
   try {
-    // Check if session directory exists asynchronously
-    try {
-      await fs.access("session", fs.constants.F_OK);
-    } catch (err) {
+    if (config.SESSION_ID && !fs.existsSync("session")) {
       console.log("loading session from session id...");
-      await fs.mkdir("./session");
+      fs.mkdirSync("./session");
       const credsData = await loadSession(config.SESSION_ID);
-      await fs.writeFile(
+      fs.writeFileSync(
         "./session/creds.json",
         JSON.stringify(credsData.creds, null, 2)
       );
     }
-
     await readAndRequireFiles(path.join(__dirname, "/assets/database/"));
     console.log("Syncing Database");
 
@@ -46,7 +42,7 @@ async function initialize() {
     console.log("⬇  Installing Plugins...");
     await readAndRequireFiles(path.join(__dirname, "/assets/plugins/"));
     await getandRequirePlugins();
-    console.log("✅ Plugins Installed!");
+    console.log("✅ Plugins Installed!!!");
     const ws = io("https://socket.xasena.me/", { reconnection: true });
     ws.on("connect", () => console.log("Connected to server"));
     ws.on("disconnect", () => console.log("Disconnected from server"));
