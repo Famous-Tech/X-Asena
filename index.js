@@ -25,15 +25,19 @@ const readAndRequireFiles = async (directory) => {
 async function initialize() {
   console.log("Starting FAMOUS-MD");
   try {
-    if (config.SESSION_ID && !fs.existsSync("session")) {
+    // Check if session directory exists asynchronously
+    try {
+      await fs.access("session", fs.constants.F_OK);
+    } catch (err) {
       console.log("loading session from session id...");
-      fs.mkdirSync("./session");
+      await fs.mkdir("./session");
       const credsData = await loadSession(config.SESSION_ID);
-      fs.writeFileSync(
+      await fs.writeFile(
         "./session/creds.json",
         JSON.stringify(credsData.creds, null, 2)
       );
     }
+
     await readAndRequireFiles(path.join(__dirname, "/assets/database/"));
     console.log("Syncing Database");
 
